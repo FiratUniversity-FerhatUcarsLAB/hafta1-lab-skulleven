@@ -1,4 +1,534 @@
-Öğrenci No:
-AD-SOYAD:
+Öğrenci No: 250541110
+AD-SOYAD: Melik Buğra Kara
 
-Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+Seçtiğim algoritma : Orjinal Super Mario Bros oyununun 1-1 bölümünde en fazla skoru nasıl alınabilir.
+
+OYUNU BAŞLAT
+YÜKLE Level 1-1
+
+Değişkenler:
+    skor = 0
+    kombo_çarpanı = 1
+    pozisyon = başlangıç_noktası
+    mario_durumu = küçük
+    can = 3
+    gizli_coin_odasina_girildi = false
+    mario_piksel_yükseklik = 0
+
+// Birden fazla yapılacağı için daha temiz gözükmesi için ayrı bir fonksiyon.
+FONKSİYON altın_topla YAP
+    HER ekrandaki altın VEYA blok için:
+        EĞER altınsa YAP
+            TOPLA altın
+            YÜKSELT skor 200
+        EĞER bloksa YAP
+            HALA blokta altın varsa:
+                VUR blok
+                YÜKSELT skor 200
+
+// ADIM 1: Goomba ile savaş
+EĞER Goomba görüldüyse YAP
+    ZIPLA Goomba
+    YÜKSELT skor 100
+
+// ADIM 2: Blokları ve altınları topla
+YAP altın_topla
+
+EĞER mantar çıkarsa YAP
+    KOVALA mantarı toplayana kadar
+    DEĞER mario_durumu = büyük
+    YÜKSELT skor 1000
+
+// ADIM 3: Gizli coin odasına gir
+BUL dördüncü boru
+EĞER Boru girilebilirse YAP
+    GIR Boru
+    TOPLA içerdeki tüm altınları
+    HER toplanan altın:
+        YÜKSELT skor 200
+    ÇIK Boru
+    DEĞİŞKEN gizli_coin_odasina_girildi = true
+
+// ADIM 4: Ölüp farma başla
+EĞER gizli_coin_odasina_girildi == true YAP
+    BUL Goomba
+        EĞER Goomba sayısı > 1 YAP
+            ZIPLA Goomba
+            YÜKSELT skor 100
+        DEĞİLSE EĞER YAP
+            DOKUN Goomba
+            can = can - 1
+            EĞER can > 1 YAP
+                YAP farm
+    can = can - 1
+    gizli_coin_odasina_girildi = false
+
+YAP farm
+
+FONKSİYON farm YAP
+    // ADIM 5: Doğduktan sonra karşına çıkan goombaları öldür
+    EĞER ekrandaki goomba sayısı > 0 YAP
+        HER ekrandaki goomba İÇİN
+            ZIPLA Goomba
+            YÜKSELT skor 100 * kombo_çarpanı
+            kombo_çarpanı = kombo_çarpanı + 1
+    kombo_çarpanı = 0
+
+    // ADIM 6: Ekrandaki blokları topla eğer powerup varsa al.
+    YAP altın_topla
+    EĞER güç bloğuysa YAP
+        EĞER mario_durumu == büyük YAP
+            TOPLA Ateş Çiçeği
+            DEĞİŞKEN mario_durumu = ateş
+        DEĞİLSE EĞER mario_durumu == küçük YAP
+            TOPLA mantar
+            DEĞİŞKEN mario_durumu = büyük
+        YÜKSELT skor 1000
+
+    // ADIM 7: Koopanın kabuğunu en iyi şekilde kullan
+    BUL Koopa
+    ZIPLA Koopa'nın üstüne
+    TEKMELE kabuğu düşmanlara doğru
+    TAKİP ET kabuk
+    HALA kabuk düşmanlara vuruyorsa:
+        YÜKSELT kombo_çarpanı 1
+        YÜKSELT skor 100 * kombo_çarpanı
+    EĞER kabuk sana doğru geliyorsa YAP
+        ZIPLA
+
+    //ADIM 8: Üstteki altın kutularını al.
+    YAP altın_topla
+    
+    // ADIM 9: Tekrar tekrar ölerek tekrarla
+    EĞER can > 1 YAP
+        BUL Goomba
+        EĞER Goomba sayısı > 1 YAP
+            ZIPLA Goomba
+            YÜKSELT skor 100
+        DEĞİLSE EĞER
+            DOKUN Goomba
+            can = can - 1
+            EĞER can > 1 YAP
+                YAP farm
+
+
+// ADIM 10: Son bölümde zıplayarak bayrağa en yüksekten dokun
+// Skor hesaplaması : Yüksekliğe göre skor 5000, 4000, 2000, 800, 400, 100 olarak artıyor. Üstüne kalan zaman 50 ile çarpılarak puana ekleniyor.
+GIT bayraktan önceki merdivenlerin üstü
+KOŞ
+ZIPLA bayrağın üstü
+EĞER bayrağın üstüne değerse YAP
+    YÜKSELT skor 5000
+DEĞİLSE EĞER 153 > mario_piksel_yükseklik => 128 YAP
+    YÜKSELT skor 4000
+DEĞİLSE EĞER 128 > mario_piksel_yükseklik => 82 YAP
+    YÜKSELT skor 2000
+DEĞİLSE EĞER 82 > mario_piksel_yükseklik => 58 YAP
+    YÜKSELT skor 800
+DEĞİLSE EĞER 58 > mario_piksel_yükseklik => 18 YAP
+    YÜKSELT skor 400
+DEĞİLSE EĞER 18 > mario_piksel_yükseklik => 0 YAP
+    YÜKSELT skor 100
+
+YÜKSELT skor kalan_zaman * 50
+// OYUN BİTİŞİ
+GÖSTER skor
+BİTİR Level 1-1
+
+// LLM ile sohbet (ChatGPT)
+
+
+- (Soru) NES'e çıkan Super Mario Bros oyununda 1-1 bölümünde en yüksek skorun nasıl alınabileceğini adım adım ve tekrarlanan adımlarıda içeren bir pseudocode yazarmısın?
+
+-(ChatGPT) Cevap 1
+ Elbette! NES'e çıkan Super Mario Bros oyununda 1-1 bölümü, oyuncuların yüksek skor elde etmek için çeşitli teknikler kullanabildiği ikonik bir bölümdür. Bu bölümde yüksek skora ulaşmanın temel yolları şunlardır:
+
+ Skor Kazanmanın Temel Yolları:
+
+ 1- Düşmanları ezmek veya ateş toplarıyla vurmak (özellikle koopa shell combo ile).
+
+ 2- Coin toplamak (her biri 200 puan).
+
+ 3- Power-up'lar almak (Mantar: 1000 puan, Fire Flower: 1000 puan).
+
+ 4- Gizli alanlara girmek (coin room vb.).
+
+ 5- Zıplarken düşmanlara seri şekilde çarpmak (combo).
+
+ 6- Level sonundaki bayrağa mümkün olan en yüksek noktadan atlamak (maksimum 5000 puan).
+
+ 🎮 Pseudocode – Super Mario Bros 1-1 En Yüksek Skor Stratejisi:
+
+        START GAME
+        LOAD Level 1-1
+
+        INITIALIZE:
+            score = 0
+            combo_multiplier = 1
+            position = start_point
+            mario_state = small
+
+        // ADIM 1: İlk Goomba'dan kaçın veya yok et
+        IF Goomba detected THEN
+            IF mario_state == small THEN
+                jump over Goomba
+            ELSE
+                jump and stomp Goomba
+                INCREASE score by 100
+
+        // ADIM 2: Power-up bloğunu kır ve mantarı al
+        MOVE to first visible question_block
+        HIT block from below
+        SPAWN mushroom
+        CHASE mushroom until collected
+        SET mario_state = big
+        INCREASE score by 1000
+
+        // ADIM 3: Coinleri topla
+        FOR each coin_block in current segment:
+            WHILE block still has coins:
+                HIT block
+                INCREASE score by 200
+
+        // ADIM 4: İlk Koopa Troopa ile Shell Combo Yap
+        FIND Koopa
+        JUMP on Koopa
+        KICK shell towards incoming enemies
+
+        WHILE shell hits enemies:
+            INCREASE combo_multiplier by 1
+            INCREASE score by 100 * combo_multiplier
+
+        // ADIM 5: Gizli coin odasına gir
+        LOCATE hidden_pipe_near_first_gap
+        IF pipe_enterable THEN
+            ENTER pipe
+            COLLECT all coins inside
+            FOR each coin_collected:
+                INCREASE score by 200
+            EXIT pipe
+
+        // ADIM 6: Fire Flower al (güvenli alanlarda)
+        LOCATE second power-up block
+        IF mario_state == big THEN
+            HIT block to get Fire Flower
+            COLLECT Fire Flower
+            SET mario_state = fire
+            INCREASE score by 1000
+
+        // ADIM 7: Uzaktan düşmanları ateş ile vur
+        FOR each visible enemy ahead:
+            USE fireball
+            IF hit THEN
+                INCREASE score by 200
+
+        // ADIM 8: Secret 1UP bloğunu al (ekstra can = skor potansiyeli)
+        LOCATE hidden_1up_block_above_pipe_area
+        JUMP to reveal and collect 1UP
+        // not directly increasing score, but gives more lives for future
+
+        // ADIM 9: Son bölümde zıplayarak bayrağa en yüksekten değ
+        REACH end_flag
+        JUMP to top of flagpole (timing and running)
+        IF top_of_flagpole THEN
+            INCREASE score by 5000
+        ELSE
+            INCREASE score by proportional height
+
+        // OYUN BİTİŞİ
+        DISPLAY final score
+        END Level 1-1
+
+ 🔁 Tekrarlanan Skor Kazanma Adımları
+
+ Bazı adımlar bölgeye göre tekrarlanır:
+
+ Coin toplama: Her coin bloğu başına birkaç coin çıkabilir.
+
+ Shell combo: Fırsat bulundukça bir Koopa'yı zıplatıp kabuğunu kullan.
+
+ Düşman yok etme: Her düşman için 100-200 puan.
+
+ Fire Flower ile düşman vurma: Güvenli skor kaynağı.
+ İstersen bu pseudocode'u Python gibi bir dille daha teknik hâle de getirebiliriz. Yardımcı olmamı ister misin?
+
+- (Soru) Peki belirli yerlerde ölerek koopa ve goombaları tekrardan öldürerek daha fazla skor kazanamazmıyız?
+
+- (ChatGPT) Cevap 2
+ Harika bir soru ve oldukça stratejik bir bakış açısı! 🧠
+ **Super Mario Bros (NES)**'ta **ölerek düşmanları tekrar öldürme yoluyla daha fazla skor elde etme** fikri teorik olarak mantıklı görünse de, oyunun tasarımı ve skor sistemine göre bu stratejinin **bazı ciddi sınırlamaları** vardır.
+
+ ---
+
+ ## 🎮 Sorunun Cevabı:
+
+ ### ❌ **Hayır, bu yöntem pratikte işe yaramaz** çünkü:
+
+ ### 1. **Skor sıfırlanmaz ama hayat kaybı dezavantajlıdır**
+
+ * Ölünce **skor sıfırlanmaz**, ancak her öldüğünde:
+
+   * Checkpoint olmayan 1-1 gibi bir bölümde **baştan başlarsın**.
+   * Bu düşmanlar zaten senin skorunu alabileceğin ilk seferde karşına çıkar.
+   * Aynı düşmanları tekrar öldürerek daha fazla skor alırsın, **ama** bu skorlar önceki ile aynı kalır (katlanmaz), yani bir **çiftçilik (grind) stratejisi gibi işlemez**.
+
+ ### 2. **1UP farming = sınırsız can, ama skor farming ≠ sınırsız skor**
+
+ * Oyunda bazı noktalarda **1UP farming** (sonsuz can alma) yapılabilir (örn. shell stairs trick).
+ * Ancak **skor farming**, bir noktadan sonra çok zorlaşır çünkü:
+
+   * Aynı düşmanlardan tekrar tekrar puan almak **verimsiz** olur.
+   * **Zaman kısıtlaması** (timer) nedeniyle aynı bölümü sürekli oynayarak yüksek skor yapmak **risklidir**.
+   * Oyunun doğal akışında combo'lar gibi teknikler daha yüksek skor sağlar.
+
+ ---
+
+ ## ✅ Peki Ne İşe Yarayabilir?
+
+ ### 🔁 Ölerek Resetleme Kullanılabilecek Durumlar:
+
+ | Durum          | Açıklama                                                                                                                                                  |
+ | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+ | 1UP farming    | Eğer shell stairs trick gibi bir yerde 1UP aldıysan, sonra ölerek baştan başlayıp tekrar 1UP alabilirsin → teorik olarak sınırsız can → daha fazla deneme |
+ | Skor yarışması | Eğer bir yarışmada toplam skor önemliyse ve çok sabırlıysan, her defasında kabuk combo yaparak skor kasabilirsin                                          |
+
+ ---
+
+ ## 📉 Ancak Gerçekçi Değerlendirme:
+
+ Bu tarz bir strateji:
+
+ * Zaman alıcıdır ⏱️
+ * Risklidir (ölüp Game Over olmak gibi)
+ * Genellikle **verimli değildir** çünkü daha iyi skor teknikleri vardır (örneğin shell combo ve bayrak üstü zıplama gibi)
+
+ ---
+
+ ## 🧠 Alternatif Tavsiye:
+
+ Eğer **en yüksek skor** hedefin varsa, şu yöntemleri optimize et:
+
+ 1. Tüm coin’leri topla (secret room dahil)
+ 2. Her power-up’ı al
+ 3. Koopa shell combo yap (merdiven yanında)
+ 4. Fire Flower ile tüm düşmanları öldür
+ 5. Bölüm sonunda en yüksekten bayrağa zıpla
+
+ Bunlar, ölüm-üzerine-yeniden-düşman-kesme taktiğinden çok daha **etkili ve zaman verimlidir**.
+
+ ---
+
+ İstersen bu stratejiyi uygulayan bir bot veya script’in pseudocode’unu da yazabiliriz. İlgini çeker mi?
+
+-(Soru)Ama bölümün ortasından sonra öldüğümüzde 1-1 de bölümün ortasında başlıyoruz?
+
+- (ChatGPT) Cevap 3 
+ Evet! 👏 Çok iyi yakaladın ve **haklısın**:
+
+ ---
+
+ ## ✅ Doğru Bilgi:
+
+ **Super Mario Bros 1-1** bölümünde (ve diğer bazı bölümlerde), bir **"checkpoint"** sistemi vardır.
+
+ ### 🎯 Yani:
+
+ Eğer **bölümün belirli bir kısmını** geçtikten sonra ölürsen, o noktadan itibaren tekrar başlarsın, baştan değil.
+
+ ---
+
+ ## 🔍 Detaylı İnceleme:
+
+ ### 📍 Checkpoint Nasıl Çalışır?
+
+ * 1-1 bölümünde, **yaklaşık olarak büyük boru (underground giriş borusu) sonrası** checkpoint devreye girer.
+ * O andan sonra ölürsen, Mario o checkpoint’in yakınındaki bir noktadan (genelde birkaç ekran geriden) yeniden başlar.
+
+ ---
+
+ ## 🤔 Bu Bilgiyi Kullanarak Skor Arttırmak Mümkün mü?
+
+ ### ✅ Teorik olarak: **Evet**
+
+ * **Koopa veya Goomba gibi düşmanlar**, Mario öldüğünde yeniden doğar.
+ * Eğer bu düşmanları **combo** veya **fireball** gibi yüksek puanlı şekilde öldürürsen, tekrar doğmaları sayesinde **aynı düşmanlardan yeniden puan alabilirsin**.
+
+ ---
+
+ ## 💡 Ama Neye Dikkat Etmen Gerekir?
+
+ | Risk / Kısıt               | Açıklama                                                               |
+ | -------------------------- | ---------------------------------------------------------------------- |
+ | ⏳ Zaman sınırlaması        | Her denemede timer sıfırlanmaz, yani zaman dolmadan bölüm bitmeli.     |
+ | ❤️ Sınırlı can             | Ölmek = can kaybı. Çok denersen Game Over riski var.                   |
+ | 🔁 Skor artışı sınırlı     | Aynı düşmanlardan alınan puanlar, combo yoksa sabittir (100–200 puan). |
+ | 🕹️ Tekrar çok sabır ister | Bu taktik çok sabır ve tekrar gerektirir; eğlenceden çok "grind" olur. |
+
+ ---
+
+ ## 🧪 Uygulanabilir Bir Strateji (Pseudocode Kıvamında)
+
+  ```pseudocode
+  START Level 1-1
+
+  WHILE lives > 0 AND player_wants_high_score:
+
+      PLAY until checkpoint is reached
+
+      // Checkpoint sonrası skor çiftçiliği başlasın
+      LOOP:
+          FIND Koopa
+          DO shell combo if possible
+          KILL Goombas and Koopas with fireball for 200 pts each
+          COLLECT all reachable coins again
+          DIE intentionally (fall in pit or hit enemy)
+          DECREMENT lives by 1
+
+          IF lives == 0:
+              END game
+          ELSE:
+              RESPAWN at checkpoint
+
+       // Eğer puan yeterliyse veya risk artarsa çık
+       IF score > target OR lives low THEN
+          EXIT LOOP
+
+       FINISH level by jumping to top of flagpole
+       INCREASE score by 5000 (if top)
+   ```
+
+  ---
+
+  ## 🔚 Sonuç
+
+  Evet, **checkpoint sonrası ölerek skor kazanmak mümkün**, ama:
+
+  * Çok **verimli değil** (her tekrar için az skor)
+  * **Riskli** (can azalması, zaman yetmemesi)
+  * Yüksek skor için **daha iyi teknikler** var (özellikle shell stairs trick gibi)
+
+  ---
+
+  İstersen sana bu skor çiftçiliğini optimize eden **ideal bir tekrar sayısı ve skor hesaplaması** da yapabilirim. Ya da bunu bir oyun botu algoritması gibi modelleyebiliriz. Hangisini istersin?
+
+-(Soru) Ama zaman her öldüğünde 400'e sıfırlanıyor?
+
+-(ChatGPT) Cevap 4
+ Kesinlikle doğru — yine harika bir gözlem! 🎯
+ **Super Mario Bros (NES)** oyununda **öldüğünde zaman (timer)** gerçekten de **sıfırlanıyor ve yeniden başlıyor.** Bu da önceki cevapta bahsettiğim "zaman yetmeyebilir" riskini **önemli ölçüde azaltıyor.**
+
+ ---
+
+ ## ✅ O zaman ne oluyor?
+
+ ### 🎮 OYUN MEKANİĞİ:
+
+ * Mario öldüğünde:
+
+   * **Checkpoint’ten başlarsın** (eğer geçmişsen).
+   * **Skorun korunur.**
+   * **Zaman (timer)** tekrar **400** olarak başlar.
+     Bu, her yeni can için yepyeni bir 400 saniyelik oyun süresi sağlar.
+
+ ---
+
+ ## 🧠 Bu Ne Anlama Geliyor?
+
+ Artık **ölerek skor farming** stratejisi daha mantıklı hale geliyor.
+
+ ### ✔ Avantajlar:
+
+ | Özellik                       | Etki                                                          |
+ | ----------------------------- | ------------------------------------------------------------- |
+ | ⏱ Zaman sıfırlanıyor          | Her öldüğünde 400 saniye yeniden kazanıyorsun.                |
+ | 🔁 Düşmanlar yeniden doğuyor  | Aynı Koopa, Goomba vs. tekrar skor için kullanılabilir.       | 
+ | 💯 Skor korunuyor             | Yani her "can" bir skor fırsatı aslında.                      |
+ | 🔄 Kombolar tekrar edilebilir | Shell combo veya fireball kill ile sürekli puan toplanabilir. |
+
+ ---
+
+ ## 🔄 Stratejik "Skor Çiftçiliği" (Score Farming) Planı
+
+ Aşağıdaki planı uygulayarak teoride 1-1 bölümünde çok yüksek skor yapılabilir:
+
+ ---
+
+ ### 💥 STRATEJİ: **"Checkpoint Farm Loop"**
+
+ ```pseudocode
+ INITIALIZE:
+     total_score = 0
+     lives = initial_lives (3 or more)
+     time = 400
+
+ PROGRESS to checkpoint in 1-1
+
+ WHILE lives > 1:
+
+     RESET time to 400
+
+     // Skor toplama bölümü
+     PERFORM shell combo with Koopa (e.g., in staircase)
+     KILL Goombas and Koopas with fireball
+     COLLECT coins and power-ups
+
+     INCREASE total_score accordingly
+
+     DIE intentionally (fall off cliff or hit enemy)
+     DECREMENT lives by 1
+
+     RESPAWN at checkpoint
+     // Repeat
+
+ // Son kalan can ile bölümü tamamla
+ COMPLETE level
+ JUMP to top of flagpole (5000 pts)
+ INCREASE total_score by flag bonus
+ ```
+
+ ---
+
+ ## 💡 İpucu: Nerede Uygulanmalı?
+
+ En verimli farming yeri:
+
+ * **Merdivenli bölümün başındaki Koopa Troopa** (Koopa shell combo yapmaya çok uygun).
+ * Orada kabuğu tekmeleyip 6-7 düşmanı vurursan:
+
+   * Skor: 100, 200, 400, 800, 1000, 1000, 1000… + 1UP
+ * Her seferde bu kombo yaparsan **çok hızlı skor artışı** elde edersin.
+
+ ---
+
+ ## 📈 Teorik Skor Hesabı (Basit Örnek):
+
+ Bir turda elde edilen skor:
+
+ * 7 shell combo → ~5100 puan
+ * 10 coin → 2000 puan
+ * 3 düşman fireball ile → 600 puan
+   → Toplam: **~7700 puan / can**
+
+ 5 can ile:
+ 7700 × 4 (farming canları) + 5000 (bayrak) = **~35,800 puan**
+
+ (çok daha optimize edilirse 50,000+ ulaşılabilir)
+
+ ---
+
+ ## 🔚 SONUÇ:
+
+ Evet, **ölerek checkpoint sonrası skor farming yapmak**:
+
+ * Zaman sıfırlandığı için ✔ mümkün 
+ * Skor korunup düşmanlar tekrar doğduğu için ✔ verimli
+ * Doğru yerde yapılırsa ✔ ciddi skor artışı sağlar
+
+ ---
+
+ İstersen bu stratejiyi uygulayan tam bir **Python pseudocode** ya da oyun içi optimizasyon tablosu da çıkarabilirim. Dilersen devam edelim mi?
+
+/*
+    Değerlendirme: Yapay zeka güzel bir zemin hazırlasada taktiğinde çok eksik vardı. Zamanın sıfırlandığını düşünmesi veya ölünce yeniden belirli hamleleri yapma gibi olayları
+    değerlendirmedi bile. Ben kodu türkçeleştirdim ve üstüne dediğim olayları kattım. Yakın zamanda bizden iyi mario oynayamayacaklarını bilmek iyi hissettirdi.
+*/
