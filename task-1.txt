@@ -3,6 +3,8 @@ AD-SOYAD: Melik Buğra Kara
 
 Seçtiğim algoritma : Orjinal Super Mario Bros oyununun 1-1 bölümünde en fazla skoru nasıl alınabilir.
 
+Not: Yapay zekanın verdiği yanıtlarla birlikte okunması GitHubdan biraz zor olduğundan dosyayı Visual Studio Code ile açmanız daha iyi olacaktır.
+
 OYUNU BAŞLAT
 YÜKLE Level 1-1
 
