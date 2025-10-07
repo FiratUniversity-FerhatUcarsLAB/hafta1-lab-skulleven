@@ -1,4 +1,271 @@
-Öğrenci No:
-AD-SOYAD:
+Öğrenci No: 250541110
+AD-SOYAD: Melik Buğra Kara
 
-Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+Seçtiğim Algortima = Uno kart oyununda karşı rakibin yapabileceği hamleleri tahmin ederek en iyi hamleyi yapan bir algoritma.
+
+Not: Yapay zekanın verdiği yanıtlarla birlikte okunması GitHubdan biraz zor olduğundan dosyayı Visual Studio Code ile açmanız daha iyi olacaktır.
+
+oynanabilirKartlar = []
+
+FONKSİYON EnIyiHamleyiSec(benimElim, oynananKart, rakipTahmini, kartDestesi):
+    // 1. Adım: Oynanabilir kartları bul
+    HER kart İÇİNDE benimElim:
+        EĞER kart.renk == oynananKart.renk VEYA kart.tip == oynananKart.tip VEYA kart.tip == "+2" VEYA kart.tip == "+4" VEYA kart.tip == "dur" VEYA kart.tip == "döndür":
+            oynanabilirKartlar.ekleniyor(kart)
+    
+    HER kart İÇİNDE oynananKart:
+        EĞER oynananKartta aynı karttan birden fazla varsa: // aynı karttan birden fanzla olmaması için
+            oynananKart.kaldir(kart)
+
+    // 2. Adım: Kartları stratejik olarak değerlendir
+    enIyiSkor = -sonsuz
+    enIyiKart = yok
+    
+    EĞER rakipHamle.kart == "+4" VEYA rakipHamle.kart == "+2" VEYA rakipHamle.kart == "dur" VEYA rakipHamle.kart == "döndür":
+        HER kart İÇİNDE benimElim:
+            EĞER kart.tip == "+4" VEYA kart.tip == "+2" VEYA kart.tip == "dur" VEYA kart.tip == "döndür":
+                oynanabilirKartlar.ekle(kart)
+
+    HER kart İÇİNDE oynanabilirKartlar:
+        skor = KartDegerlendir(kart, rakipTahmini, benimElim)
+
+        EĞER skor > enIyiSkor:
+            enIyiSkor = skor
+            enIyiKart = kart
+
+    // 3. Adım: Eğer oynanabilir kart yoksa:
+    HALA oynanabilirKartlar == boş:
+        yeniKart = DestedenKartCek(kartDestesi)
+        eğer yeniKart.renk == ortadakiKart.renk VEYA yeniKart.tip == ortadakiKart.tip VEYA yeniKart.tip == "+2" VEYA yeniKart.tip == "+4" VEYA yeniKart.tip == "dur" VEYA yeniKart.tip == "döndür":
+            oyna yeniKart
+        benimElim += yeniKart // Normal bir UNO oyununda kartlar sadece 1 kez çekiliyo ama onun neresi zevkli?!?!?
+
+    // 4. Adım: Kartı oyna ve elden çıkar
+    benimElim.kaldır(enIyiKart)
+    oynanabilirKartlar = []
+    VER enIyiKart
+
+FONKSİYON KartDegerlendir(kart, rakipTahmini, benimElim):
+
+    skor = 0
+
+    // 1. Rakibin eline göre stratejik oynama
+    EĞER kart tipinde +2 VEYA +4 VARSA:
+        EĞER rakipte bu kartlara karşı savunma yoksa:
+            skor += 30
+
+    // 2. Renk değiştirme kartı avantajı
+    EĞER kart tipinde "renk değiştir" VARSA:
+        skor += 20
+        skor += RenkUyumSkoru(kart, benimElim)
+
+    // 3. Aynı renkten daha fazla kartın varsa o rengi tut
+    EĞER kart.renk içinde benimElim’de çok sayıda VARSA:
+        skor += 10
+
+    // 4. Rakibin o renkte zorlandığı biliniyorsa
+    EĞER rakipTahmini.renk[kart.renk] == 0:
+        skor += 15
+
+    // 5. Genel olarak güçlü kartlara öncelik
+    EĞER kart.tip == "+4":
+        skor += 50
+    EĞER kart.tip == "+2":
+        skor += 25
+    EĞER kart.tip == "bekle" VEYA "yön değiştir":
+        skor += 60
+
+    VER skor
+
+
+FONKSİYON RenkUyumSkoru(kart, benimElim):
+    enCokOlanRenk = RenkSayim(benimElim)  // hangi renkten kaç tane var
+    EĞER kart tipinde renk seçimi VARSA:
+        skor = enCokOlanRenk adedine göre
+    VER skor
+
+FONKSİYON RakipTahminiGuncelle(rakipHamle, rakipKartCektiMi):
+    renkSayisi = {"kırmızı": ?, "mavi": ?, "yeşil": ?, "sarı": ?}
+    ozelKart = {"+4": ?, "+2": ?, "dur": ?, "döndür": ?}
+
+    EĞER rakip özel kart oynadıysa:
+        EĞER rakipHamlesi.kart == "+4" VEYA rakipHamlesi.kart == "+2":
+            HER çekilen_kart İÇİN:
+                benimElim.ekle(çekilen_kart)
+        ozelKart[rakipHamlesi.kart] -= 1
+        
+    // Tahmini güçlendir
+    EĞER rakip kart çektiyse:
+        HER kart İÇİNDE benimElim:
+            EĞER kart.renk == oynananKart.renk:
+                oynanabilirKartlar.ekle(kart)
+
+    VER renkSayisi  // Basit renk bazlı model
+
+HALA oyun bitmedi:
+    EĞER sıra bende:
+        kart = EnIyiHamleyiSec(benimElim, oynananKart, rakipTahmini, kartDestesi)
+        oynananKart = kart
+    DEĞİLSE:
+        rakipHamle = RakipHamlesiYap(rakipEl)
+        oynananKart = rakipHamle
+        EĞER rakip kart çektiyse:
+            rakipKartCektiMi = true
+        DEĞİLSE:
+            rakipKartCektiMi = false
+
+    RakipTahminiGuncelle(rakipHamle, rakipKartCektiMi)
+
+// LLM ile sohbet (ChatGPT)
+
+// Değerlendirme : Marioya kıyasla çok daha detaylı ve ayakları yerinde duran bir algoritma verdi. Ben sadece skorda turu tekrar eden kartları atmasını kolaylaştırdım ve ekstradan rakip öngörülerini geliştirdim.
+// görünüşe göre AI basit oyunlarda çok daha iyi. Ama UNO yetenekten çok bir şans oyunu o yüzden ne yaparsak yapalım kazanmamız garanti değil.
+
+- (Soru) İki kişilik normal desteli her oyuncunun başlangıçta elinde 7 kart olan bir Uno oyununda rakip oyuncununda hareketlerini tahmin ederek en iyi hamleleri yaptığın bir pseudocode yaz
+
+- (Cevap)
+    Uno gibi stratejik kart oyunlarında, en iyi hamleleri yapmak için sadece kendi kartlarına değil, aynı zamanda rakibin elinde ne olabileceğini tahmin ederek oynarsın. Bu durumda hem **bilinçli kart oynama**, hem de **rakip modelleme** (opponent modeling) işin içine girer.
+
+    Aşağıda, iki kişilik bir Uno oyunu için, her oyuncunun 7 kartla başladığı, ve oyuncunun **kendi kartlarına ve rakibin potansiyel kartlarına göre en iyi hamleyi yaptığı** bir pseudocode yazdım.
+
+    ---
+
+    ### 🃏 Oyun Kuralları (Basitleştirilmiş):
+
+    * Oyuncular sırayla oynar.
+    * Oynanabilecek kartlar: Aynı **renk** veya aynı **numara**.
+    * Özel kartlar: `+2`, `+4`, `Renk değiştir`, `Yön değiştir`, `Bekle` gibi kartlar **varsayılır**.
+    * Amaç: Kartları en hızlı bitiren olmak.
+    * Rakibin eli tam olarak bilinmez, sadece **oynadığı kartlardan ve almadığından** tahmin yapılır.
+
+    ---
+
+    ## 🎮 Pseudocode: En İyi Hamleyi Seçen Uno Oyuncusu
+
+    ```
+    fonksiyon EnIyiHamleyiSec(benimElim, oynananKart, rakipTahmini, kartDestesi):
+
+        oynanabilirKartlar = []
+
+        // 1. Adım: Oynanabilir kartları bul
+        her kart içinde benimElim:
+            eğer kart.renk == oynananKart.renk veya kart.tip == oynananKart.tip veya kart.tip özel (ör: +4, renk değiştir):
+                oynanabilirKartlar.append(kart)
+
+        // 2. Adım: Eğer oynanabilir kart yoksa:
+        eğer oynanabilirKartlar boşsa:
+            yeniKart = DestedenKartCek(kartDestesi)
+            eğer yeniKart oynanabilir:
+                oynanabilirKartlar.append(yeniKart)
+            değilse:
+                elim += yeniKart
+                geri dön "Pas geç"
+
+        // 3. Adım: Kartları stratejik olarak değerlendir
+        enIyiSkor = -sonsuz
+        enIyiKart = yok
+
+        her kart içinde oynanabilirKartlar:
+            skor = KartDegerlendir(kart, rakipTahmini, benimElim)
+
+            eğer skor > enIyiSkor:
+                enIyiSkor = skor
+                enIyiKart = kart
+
+        // 4. Adım: Kartı oyna ve elden çıkar
+        benimElim.remove(enIyiKart)
+        geri dön enIyiKart
+    ```
+
+    ---
+
+    ### 🧠 Yardımcı Fonksiyonlar
+
+    ```
+    fonksiyon KartDegerlendir(kart, rakipTahmini, benimElim):
+
+        skor = 0
+
+        // 1. Rakibin eline göre stratejik oynama
+        eğer kart tipinde +2 veya +4 varsa:
+            eğer rakipte bu kartlara karşı savunma yoksa (rakipTahmini.renk sayısı azsa):
+                skor += 30
+
+        // 2. Renk değiştirme kartı avantajı
+        eğer kart tipinde "renk değiştir" varsa:
+            skor += 20
+            skor += RenkUyumSkoru(kart, benimElim)
+
+        // 3. Aynı renkten daha fazla kartın varsa o rengi tut
+        eğer kart.renk içinde benimElim’de çok sayıda varsa:
+            skor += 10
+
+        // 4. Rakibin o renkte zorlandığı biliniyorsa
+        eğer rakipTahmini.renk[kart.renk] == düşükse:
+            skor += 15
+
+        // 5. Genel olarak güçlü kartlara öncelik
+        eğer kart.tip == "+4":
+            skor += 50
+        eğer kart.tip == "+2":
+            skor += 25
+        eğer kart.tip == "bekle" veya "yön değiştir":
+            skor += 10
+
+        geri dön skor
+
+
+    fonksiyon RenkUyumSkoru(kart, benimElim):
+        enCokOlanRenk = RenkSayim(benimElim)  // hangi renkten kaç tane var
+        eğer kart tipinde renk seçimi varsa:
+            skor = enCokOlanRenk adedine göre
+        geri dön skor
+    ```
+
+    ---
+
+    ### 🧠 Rakip Tahmini (Basit Modelleme)
+
+    ```
+    fonksiyon RakipTahminiGuncelle(rakipHamleleri, rakipKartCektiMi):
+
+        renkSayisi = {"kırmızı": ?, "mavi": ?, "yeşil": ?, "sarı": ?}
+
+        // Eğer rakip bir turda kart çektiyse:
+        eğer rakipKartCektiMi:
+            oynananRenk = en son oynanan kartın rengi
+            renkSayisi[oynananRenk] -= 1  // Bu renkten kartı yok olabilir
+
+        // Eğer rakip özel kart oynadıysa:
+        // Tahmini güçlendir
+
+        geri dön renkSayisi  // Basit renk bazlı model
+    ```
+
+    ---
+
+    ### 🔚 Oyunun Döngüsü
+
+    ```
+    while oyun bitmedi:
+        eğer sıra bende:
+            kart = EnIyiHamleyiSec(benimElim, oynananKart, rakipTahmini, kartDestesi)
+            oynananKart = kart
+        değilse:
+            rakipHamle = RakipHamlesiYap(rakipEl)
+            oynananKart = rakipHamle
+
+        RakipTahminiGuncelle(...)
+    ```
+
+    ---
+
+    ### 💡 Gelişmiş Versiyonlar İçin:
+
+    * **Monte Carlo Simülasyonu**: Rakibin ellerine olasılıksal olarak kartlar dağıtıp binlerce oyunu simüle ederek en iyi hamleyi bulabilirsin.
+    * **Minimax + Alpha-Beta Pruning**: Eğer oyunu daha fazla ilerisine kadar hesaplamak istersen.
+    * **Makine Öğrenmesi / Q-learning**: Hamle kalıpları üzerinden öğrenen oyuncu geliştirmek için.
+
+    ---
+
+    Eğer istersen bu algoritmayı Python gibi bir dilde gerçek koda dönüştürebilirim. Ya da sadece strateji üzerinden konuşabiliriz. Ne istersin?

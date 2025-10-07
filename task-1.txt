@@ -22,24 +22,24 @@ FONKSİYON altın_topla YAP
     HER ekrandaki altın VEYA blok için:
         EĞER altınsa YAP
             TOPLA altın
-            YÜKSELT skor 200
+            skor += 200
         EĞER bloksa YAP
             HALA blokta altın varsa:
                 VUR blok
-                YÜKSELT skor 200
+                skor += 200
 
 // ADIM 1: Goomba ile savaş
 EĞER Goomba görüldüyse YAP
     ZIPLA Goomba
-    YÜKSELT skor 100
+    skor += 100
 
 // ADIM 2: Blokları ve altınları topla
 YAP altın_topla
 
 EĞER mantar çıkarsa YAP
     KOVALA mantarı toplayana kadar
-    DEĞER mario_durumu = büyük
-    YÜKSELT skor 1000
+    mario_durumu = büyük
+    skor += 1000
 
 // ADIM 3: Gizli coin odasına gir
 BUL dördüncü boru
@@ -47,16 +47,16 @@ EĞER Boru girilebilirse YAP
     GIR Boru
     TOPLA içerdeki tüm altınları
     HER toplanan altın:
-        YÜKSELT skor 200
+        skor += 200
     ÇIK Boru
-    DEĞİŞKEN gizli_coin_odasina_girildi = true
+    gizli_coin_odasina_girildi = true
 
 // ADIM 4: Ölüp farma başla
 EĞER gizli_coin_odasina_girildi == true YAP
     BUL Goomba
         EĞER Goomba sayısı > 1 YAP
             ZIPLA Goomba
-            YÜKSELT skor 100
+            skor += 100
         DEĞİLSE EĞER YAP
             DOKUN Goomba
             can = can - 1
@@ -72,7 +72,7 @@ FONKSİYON farm YAP
     EĞER ekrandaki goomba sayısı > 0 YAP
         HER ekrandaki goomba İÇİN
             ZIPLA Goomba
-            YÜKSELT skor 100 * kombo_çarpanı
+            skor += 100 * kombo_çarpanı
             kombo_çarpanı = kombo_çarpanı + 1
     kombo_çarpanı = 0
 
@@ -81,10 +81,10 @@ FONKSİYON farm YAP
     EĞER güç bloğuysa YAP
         EĞER mario_durumu == büyük YAP
             TOPLA Ateş Çiçeği
-            DEĞİŞKEN mario_durumu = ateş
+            mario_durumu = ateş
         DEĞİLSE EĞER mario_durumu == küçük YAP
             TOPLA mantar
-            DEĞİŞKEN mario_durumu = büyük
+            mario_durumu = büyük
         YÜKSELT skor 1000
 
     // ADIM 7: Koopanın kabuğunu en iyi şekilde kullan
@@ -93,8 +93,8 @@ FONKSİYON farm YAP
     TEKMELE kabuğu düşmanlara doğru
     TAKİP ET kabuk
     HALA kabuk düşmanlara vuruyorsa:
-        YÜKSELT kombo_çarpanı 1
-        YÜKSELT skor 100 * kombo_çarpanı
+        kombo_çarpanı += 1
+        skor += 100 * kombo_çarpanı
     EĞER kabuk sana doğru geliyorsa YAP
         ZIPLA
 
@@ -106,7 +106,7 @@ FONKSİYON farm YAP
         BUL Goomba
         EĞER Goomba sayısı > 1 YAP
             ZIPLA Goomba
-            YÜKSELT skor 100
+            skor += 100
         DEĞİLSE EĞER
             DOKUN Goomba
             can = can - 1
@@ -120,19 +120,19 @@ GIT bayraktan önceki merdivenlerin üstü
 KOŞ
 ZIPLA bayrağın üstü
 EĞER bayrağın üstüne değerse YAP
-    YÜKSELT skor 5000
+    skor += 5000
 DEĞİLSE EĞER 153 > mario_piksel_yükseklik => 128 YAP
-    YÜKSELT skor 4000
+    skor += 4000
 DEĞİLSE EĞER 128 > mario_piksel_yükseklik => 82 YAP
-    YÜKSELT skor 2000
+    skor += 2000
 DEĞİLSE EĞER 82 > mario_piksel_yükseklik => 58 YAP
-    YÜKSELT skor 800
+    skor += 800
 DEĞİLSE EĞER 58 > mario_piksel_yükseklik => 18 YAP
-    YÜKSELT skor 400
+    skor += 400
 DEĞİLSE EĞER 18 > mario_piksel_yükseklik => 0 YAP
-    YÜKSELT skor 100
+    skor += 100
 
-YÜKSELT skor kalan_zaman * 50
+skor += kalan_zaman * 50
 // OYUN BİTİŞİ
 GÖSTER skor
 BİTİR Level 1-1
