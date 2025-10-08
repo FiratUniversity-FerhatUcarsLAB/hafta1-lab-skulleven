@@ -1,4 +1,194 @@
-Öğrenci No:
-AD-SOYAD:
+Öğrenci No: 250541110
+AD-SOYAD: Melik Buğra Kara
 
-Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+Seçtiğim Algoritma: Renkleri karıştırarak istenen rengi bulma.
+
+//-------------------------------------------------------------
+// TEMEL PALETİN TANIMLANMASI
+// Renkleri sayısal değerlerle temsil edelim (RGB formatında)
+//-------------------------------------------------------------
+FONKSİYON Başlat_Palet():
+  Palet.Kırmızı = (255, 0, 0)
+  Palet.Yeşil   = (0, 255, 0)
+  Palet.Mavi    = (0, 0, 255)
+  Palet.Siyah   = (0, 0, 0) // Bilinmeyen renkler için varsayılan
+
+//-------------------------------------------------------------
+// RENKLERİ KARIŞTIRAN YARDIMCI FONKSİYON
+// İki rengi belirli bir oranda birleştirir.
+//-------------------------------------------------------------
+FONKSİYON Karıştır(renk1, renk2, oran):
+  // (Örn: renk1'den %100, renk2'den %50 alarak yeni bir renk oluştur)
+  yeni_R = renk1.R * (1.0) + renk2.R * (oran)
+  yeni_G = renk1.G * (1.0) + renk2.G * (oran)
+  yeni_B = renk1.B * (1.0) + renk2.B * (oran)
+  
+  // Değerlerin 255'i geçmediğinden emin ol
+  yeni_R = MIN(255, yeni_R)
+  yeni_G = MIN(255, yeni_G)
+  yeni_B = MIN(255, yeni_B)
+  
+  DÖNDÜR (yeni_R, yeni_G, yeni_B)
+
+//-------------------------------------------------------------
+// BÖL VE FETHET MANTIĞINI İÇEREN ANA FONKSİYON
+//-------------------------------------------------------------
+FONKSİYON RengiOluştur(hedefRenk):
+  // --- Fethet (Conquer) Adımı: Temel Durumlar ---
+  // Eğer istenen renk zaten paletimizde varsa, doğrudan onu döndür.
+  EĞER hedefRenk == "Kırmızı":
+    DÖNDÜR Palet.Kırmızı
+  DEĞİLSE EĞER hedefRenk == "Yeşil":
+    DÖNDÜR Palet.Yeşil
+  DEĞİLSE EĞER hedefRenk == "Mavi":
+    DÖNDÜR Palet.Mavi
+  
+  // --- Böl (Divide) ve Birleştir (Combine) Adımı ---
+  // Eğer istenen renk paletimizde yoksa, onu bileşenlerine ayır.
+  DEĞİLSE EĞER hedefRenk == "Turuncu":
+    // Problemi "Kırmızı'yı bul" ve "Yeşil'i bul" olarak ikiye böl.
+    bileşen1 = RengiOluştur("Kırmızı")  // Recursive çağrı
+    bileşen2 = RengiOluştur("Yeşil")    // Recursive çağrı
+    
+    // Alt problemlerden gelen sonuçları birleştirerek çözüme ulaş.
+    // Turuncu için tam kırmızı ve yaklaşık yarım yeşil kullanılır.
+    DÖNDÜR Karıştır(bileşen1, bileşen2, 0.5) 
+    
+  // Diğer tüm bilinmeyen renkler için varsayılan bir renk döndür.
+  DEĞİLSE:
+    DÖNDÜR Palet.Siyah
+
+//-------------------------------------------------------------
+// ANA PROGRAM AKIŞI
+//-------------------------------------------------------------
+PROSEDÜR AnaProgram():
+  Başlat_Palet()
+  
+  YAZDIR "Turuncu rengi oluşturuluyor..."
+  
+  // Ana fonksiyonu hedef rengimizle çağır
+  eldeEdilenRenk = RengiOluştur("Turuncu")
+  
+  YAZDIR "Sonuç:"
+  YAZDIR eldeEdilenRenk // Beklenen çıktı: (255, 128, 0) civarında bir değer
+
+// Programı çalıştır
+AnaProgram()
+
+//LLM ile sohbet geçmişi (Gemini)
+
+-(Soru) Elinde sadece Kırmızı, Mavi ve Yeşil renk tonları olan bir palet var. Böl ve Fethet yaklaşımıyla Turuncu rengi elde ettiğin bir pseudocode yazarmısın?
+
+-(Cevap)
+    Elbette, Kırmızı, Mavi ve Yeşil renklerinin temel olarak kabul edildiği bir palette, "Böl ve Fethet" (Divide and Conquer) yaklaşımını kullanarak Turuncu rengini elde etmek için bir pseudocode yazalım.
+
+    Buradaki temel mantık, problemi daha küçük ve çözülebilir alt problemlere ayırmaktır.
+
+    * **Problem:** Turuncu rengini oluşturmak.
+    * **Böl (Divide):** Turuncu rengini, onu oluşturan ana renklere ayırırız. Katkı renk modeline (RGB) göre Turuncu, Kırmızı ve Yeşil'in bir karışımıdır (tam kırmızı ve bir miktar yeşil). Problemi "Kırmızı rengini elde et" ve "Yeşil rengini elde et" olarak iki alt probleme böleriz.
+    * **Fethet (Conquer):** Bu alt problemleri çözeriz. "Kırmızı rengini elde et" problemi temel bir durumdur (base case), çünkü Kırmızı zaten paletimizde var. Aynı şekilde "Yeşil rengini elde et" de temel bir durumdur. Eğer alt problemler de karmaşık renkler olsaydı, onları da kendi bileşenlerine ayırarak süreci tekrarlardık (recursion).
+    * **Birleştir (Combine):** Alt problemlerden elde ettiğimiz sonuçları (Kırmızı ve Yeşil renklerini) karıştırarak asıl problemimizin çözümü olan Turuncu rengini elde ederiz.
+
+    İşte bu mantığı izleyen pseudocode:
+
+    ```
+    //-------------------------------------------------------------
+    // TEMEL PALETİN TANIMLANMASI
+    // Renkleri sayısal değerlerle temsil edelim (RGB formatında)
+    //-------------------------------------------------------------
+    FONKSİYON Başlat_Palet():
+    Palet.Kırmızı = (255, 0, 0)
+    Palet.Yeşil   = (0, 255, 0)
+    Palet.Mavi    = (0, 0, 255)
+    Palet.Siyah   = (0, 0, 0) // Bilinmeyen renkler için varsayılan
+    SON
+
+    //-------------------------------------------------------------
+    // RENKLERİ KARIŞTIRAN YARDIMCI FONKSİYON
+    // İki rengi belirli bir oranda birleştirir.
+    //-------------------------------------------------------------
+    FONKSİYON Karıştır(renk1, renk2, oran):
+    // (Örn: renk1'den %100, renk2'den %50 alarak yeni bir renk oluştur)
+    yeni_R = renk1.R * (1.0) + renk2.R * (oran)
+    yeni_G = renk1.G * (1.0) + renk2.G * (oran)
+    yeni_B = renk1.B * (1.0) + renk2.B * (oran)
+    
+    // Değerlerin 255'i geçmediğinden emin ol
+    yeni_R = MIN(255, yeni_R)
+    yeni_G = MIN(255, yeni_G)
+    yeni_B = MIN(255, yeni_B)
+    
+    DÖNDÜR (yeni_R, yeni_G, yeni_B)
+    SON
+
+    //-------------------------------------------------------------
+    // BÖL VE FETHET MANTIĞINI İÇEREN ANA FONKSİYON
+    //-------------------------------------------------------------
+    FONKSİYON RengiOluştur(hedefRenk):
+    // --- Fethet (Conquer) Adımı: Temel Durumlar ---
+    // Eğer istenen renk zaten paletimizde varsa, doğrudan onu döndür.
+    EĞER hedefRenk == "Kırmızı":
+        DÖNDÜR Palet.Kırmızı
+    DEĞİLSE EĞER hedefRenk == "Yeşil":
+        DÖNDÜR Palet.Yeşil
+    DEĞİLSE EĞER hedefRenk == "Mavi":
+        DÖNDÜR Palet.Mavi
+    
+    // --- Böl (Divide) ve Birleştir (Combine) Adımı ---
+    // Eğer istenen renk paletimizde yoksa, onu bileşenlerine ayır.
+    DEĞİLSE EĞER hedefRenk == "Turuncu":
+        // Problemi "Kırmızı'yı bul" ve "Yeşil'i bul" olarak ikiye böl.
+        bileşen1 = RengiOluştur("Kırmızı")  // Recursive çağrı
+        bileşen2 = RengiOluştur("Yeşil")    // Recursive çağrı
+        
+        // Alt problemlerden gelen sonuçları birleştirerek çözüme ulaş.
+        // Turuncu için tam kırmızı ve yaklaşık yarım yeşil kullanılır.
+        DÖNDÜR Karıştır(bileşen1, bileşen2, 0.5) 
+        
+    // Diğer tüm bilinmeyen renkler için varsayılan bir renk döndür.
+    DEĞİLSE:
+        DÖNDÜR Palet.Siyah
+    SON
+    SON
+
+    //-------------------------------------------------------------
+    // ANA PROGRAM AKIŞI
+    //-------------------------------------------------------------
+    PROSEDÜR AnaProgram():
+    Başlat_Palet()
+    
+    YAZDIR "Turuncu rengi oluşturuluyor..."
+    
+    // Ana fonksiyonu hedef rengimizle çağır
+    eldeEdilenRenk = RengiOluştur("Turuncu")
+    
+    YAZDIR "Sonuç:"
+    YAZDIR eldeEdilenRenk // Beklenen çıktı: (255, 128, 0) civarında bir değer
+    SON
+
+    // Programı çalıştır
+    AnaProgram()
+    ```
+
+    ### Adım Adım Çalışma Mantığı
+
+    1.  `AnaProgram` çalışır ve `RengiOluştur("Turuncu")` fonksiyonunu çağırır.
+    2.  `RengiOluştur` fonksiyonu içine "Turuncu" parametresi girer.
+    3.  Fonksiyon kontrol eder: "Turuncu" temel renklerden biri mi? Hayır.
+    4.  O zaman "Turuncu" `DEĞİLSE EĞER` bloğuna girer.
+    5.  **Bölme:** Problem ikiye ayrılır ve fonksiyon kendi kendini çağırır:
+        * `RengiOluştur("Kırmızı")` çağrılır.
+        * `RengiOluştur("Yeşil")` çağrılır.
+    6.  **Fethetme:**
+        * `RengiOluştur("Kırmızı")` çağrısı çalışır. Fonksiyon, "Kırmızı"nın temel bir renk olduğunu anlar ve `Palet.Kırmızı` değerini `(255, 0, 0)` olarak anında döndürür.
+        * `RengiOluştur("Yeşil")` çağrısı çalışır. Fonksiyon, "Yeşil"in temel bir renk olduğunu anlar ve `Palet.Yeşil` değerini `(0, 255, 0)` olarak anında döndürür.
+    7.  **Birleştirme:**
+        * Artık ilk `RengiOluştur("Turuncu")` çağrısı için `bileşen1` değeri `(255, 0, 0)` ve `bileşen2` değeri `(0, 255, 0)` olmuştur.
+        * Bu iki sonuç `Karıştır` fonksiyonuna `(255, 0, 0)`, `(0, 255, 0)` ve `0.5` parametreleriyle gönderilir.
+        * `Karıştır` fonksiyonu bu değerleri birleştirerek yaklaşık olarak `(255, 128, 0)` sonucunu hesaplar ve döndürür.
+    8.  Bu nihai değer, `AnaProgram`'a döndürülür ve ekrana yazdırılır.
+
+/*
+    Değerlendirme : Görünüşe göre problem ne kadar basitse o kadar iyi cevap veriyor LLM'ler. Özellikle Mario Bros. taskinden kat kat daha iyi bir cevap verdi.
+    Hiçbir şey yapmama gerek kalmadı açıkçası.
+*/
