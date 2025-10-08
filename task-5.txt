@@ -1,4 +1,253 @@
-Öğrenci No:
-AD-SOYAD:
+Öğrenci No: 250541110
+AD-SOYAD: Melik Buğra Kara
 
-Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+Seçtiğim Algoritma : Counter-Strike 2 oyunundaki verileri kullanarak hangi harita, kimle daha çok maç attığını ve hangi tarafta daha yüksek performans gösterdiğimi sıralayan bir algoritma
+
+Algoritma:
+1-Leetify API'dan gerekli bilgileri al. //Leetify Counter-Strike maçlarınızı analiz edip sizin hangi hartialarda nasıl oynadığınız gibi bilgileri aktaran topluluk platformudur.
+2-Harita bazlı rekabetçi sıralamalarını büyükten küçüğe sırala.
+3-Kişilerle oynanılan maç sayılarını büyükten küçüğe sırala
+4-Hem T hem CT tarafında aldığım reytingleri al
+5-Büyükten küçüğe yazdır.
+6-En çok oynananı yazdır.
+7-Hangisi daha yüksekse yazdır.
+
+Pseudocode:
+
+FONKSİYON kucukten_buyuge(liste):
+    HER sayi İÇİNDE uzunluk(liste):
+        değiştirildi = false
+        HER sira İÇİNDE uzunluk(liste) - sayi - 1 İÇİN:
+            EĞER liste[sira] < ranklar[sira + 1]:
+                değiştir(ranklar[sira], ranklar[sira + 1])
+                değiştirildi = true
+    EĞER değiştirildi == false İSE:
+        VER liste
+
+//ADIM 1: API'dan gerekli bilgileri al
+API = leetify
+oyuncuNo = steamID64 // 64-bitlik steam id her steam kullanıcısınınki farklıdır.
+
+bilgi = API.bilgial(oyuncuNo)
+
+//ADIM 2: Harita bazlı rekabetçi sıralamalarını al ve küçükten büyüğe sırala
+ranklar = bilgi.rekabetciRankAl()
+ranklar_siralanmış = kucukten_buyuge(ranklar)
+
+//ADIM 3: Kişilerle oynanılan maç sayılarını büyükten küçüğe sırala.
+takim_arkadaslari = bilgi.takimArkadasiAl()
+takim_arkadaslari_siralanmis = kucukten_buyuge(takim_arkadaslari)
+
+//ADIM 4: Hem CT hem T tarafındaki reytingleri al
+reyting_ct = bilgi.reytingAlCT()
+reyting_t = bilgi.reytingAlT()
+
+//ADIM 5: Hangi tarafın daha iyi olduğuna karar ver.
+EĞER reyting_ct > reyting_t İSE:
+    en_iyi_taraf = "CT"
+DEĞİLSE EĞER reyting_ct == reyting_t İSE:
+    en_iyi_taraf = "Eşit"
+DEĞİLSE EĞER reyting_ct < reyting_t İSE:
+    en_iyi_taraf = "T"
+
+reytingler = kucukten_buyuge(reyting)
+
+//ADIM 6: Yazdır.
+yazdır("En çok oynadığın takım arkadaşın : " + takim_arkadaslari_siralanmis[0])
+yazdır("En çok oynadığın harita : " + ranklar_siralanmış.harita[0])
+yazdır("En iyi oynadığın taraf" + en_iyi_taraf)
+
+//LLM ile soru-cevap (Gemini)
+
+-(Soru) 
+    Öğrenci No: 250541110
+    AD-SOYAD: Melik Buğra Kara
+
+    Seçtiğim Algoritma : Counter-Strike 2 oyunundaki verileri kullanarak hangi harita, kimle daha çok maç attığını ve hangi tarafta daha yüksek performans gösterdiğimi sıralayan bir algoritma
+
+    Algoritma:
+    1-Leetify API'dan gerekli bilgileri al. //Leetify Counter-Strike maçlarınızı analiz edip sizin hangi hartialarda nasıl oynadığınız gibi bilgileri aktaran topluluk platformudur.
+    2-Harita bazlı rekabetçi sıralamalarını büyükten küçüğe sırala.
+    3-Kişilerle oynanılan maç sayılarını büyükten küçüğe sırala
+    4-Hem T hem CT tarafında aldığım reytingleri al
+    5-Büyükten küçüğe yazdır.
+    6-En çok oynananı yazdır.
+    7-Hangisi daha yüksekse yazdır.
+
+    Pseudocode:
+
+    FONKSİYON kucukten_buyuge(liste):
+        HER sayi İÇİNDE uzunluk(liste):
+        değiştirildi = false
+        HER sira İÇİNDE uzunluk(liste) - sayi - 1 İÇİN:
+            EĞER liste[sira] < ranklar[liste + 1]:
+                değiştir(ranklar[liste], ranklar[liste + 1])
+                değiştirildi = true
+            EĞER değiştirildi == false İSE:
+                VER liste
+
+    //ADIM 1: API'dan gerekli bilgileri al
+    API = leetify
+    oyuncuNo = steamID64 // 64-bitlik steam id her steam kullanıcısınınki farklıdır.
+
+    bilgi = API.bilgial(oyuncuNo)
+
+    //ADIM 2: Harita bazlı rekabetçi sıralamalarını al ve küçükten büyüğe sırala
+    ranklar = []
+    HER rank IÇINDE bilgi:
+        bilgi.rekabetciRankAl(rank)
+        ranklar.ekle(rank)
+
+    ranklar = kucukten_buyuge(ranklar)
+
+    //ADIM 3: Kişilerle oynanılan maç sayılarını büyükten küçüğe sırala.
+    takim_arkadaslari = []
+    HER kişi IÇINDE bilgi:
+        bilgi.takim_arkadasial(kişi)
+        takim_arkadaslari.ekle(kişi)
+
+    takim_arkadaslari = kucukten_buyuge(takim_arkadaslari)
+
+    //ADIM 4: Hem CT hem T tarafındaki reytingleri al
+    reytingler = []
+    HER reyting IÇINDE bilgi:
+        bilgi.reytingAl(reyting)
+        takim_arkadaslari.ekle(reyting)
+
+    reytingler = kucukten_buyuge(reyting)
+
+    //ADIM 5: Yazdır.
+    yazdır(takim_arkadaslari)
+    yazdır(ranklar)
+    yazdır(reytingler)
+
+
+    Bu pseudocodeda bir sorun varmı?
+
+-(Cevap)
+    Merhaba Melik Buğra, algoritma mantığın ve adımların gayet iyi düşünülmüş. Counter-Strike 2 verilerini bu şekilde analiz etme fikri oldukça güzel. Ancak, yazdığın pseudocode'da hem mantıksal hem de yazım (syntax) olarak düzeltilmesi gereken bazı önemli hatalar var.
+
+    Aşağıda bu hataları ve nasıl düzeltilebileceğini adım adım açıkladım.
+
+    ### Pseudocode'daki Sorunlar
+
+    1.  **Sıralama Fonksiyonu (`kucukten_buyuge`) Hatalı:**
+
+        * **İsim ve İşlev Uyuşmazlığı:** Algoritmanda verileri **büyükten küçüğe** sıralamak istediğini belirtmişsin ama fonksiyonun adını `kucukten_buyuge` koymuşsun. Ayrıca içindeki karşılaştırma `EĞER liste[sira] < ...` de küçükten büyüğe sıralama yapar. Bu bir çelişkidir.
+        * **Yanlış Değişken Kullanımı:** Fonksiyonun içinde `ranklar` ve `liste` değişkenlerini yanlış kullanmışsın. Fonksiyonun parametresi `liste` olduğu için tüm işlemler `liste` üzerinden yapılmalıdır. Örneğin, `ranklar[liste + 1]` gibi bir ifade hem `ranklar`'ı yanlış yerde kullanıyor hem de `liste + 1` (listeye sayı eklemek) hatalı bir işlemdir. Karşılaştırma `liste[sira]` ve `liste[sira + 1]` arasında olmalıdır.
+        * **`return` İfadesi Yanlış Yerde:** `VER liste` (return) komutu döngünün içinde. Bu, fonksiyonun sadece bir kez çalışıp hemen sonlanmasına neden olur. Sıralamanın tamamlanması için `return` ifadesi döngülerin tamamen dışında olmalıdır.
+
+    2.  **Veri Alma Döngüleri (`HER ... İÇİNDE`) Mantıksal Olarak Hatalı:**
+
+        * `HER rank IÇINDE bilgi:` gibi döngüler kurmuşsun. Buradaki mantık şöyle olmalı: Önce API'dan **tüm harita listesini** (veya arkadaş listesini) alırsın, sonra bu listenin *içindeki her bir eleman için* işlem yaparsın. Mevcut kod, sanki `bilgi` adında bir liste varmış gibi davranıyor ama `bilgi` daha çok ana API nesnesi gibi duruyor.
+
+    3.  **Veri Ekleme Hataları:**
+
+        * **Adım 4'te**, reytingleri alırken `takim_arkadaslari.ekle(reyting)` komutunu kullanmışsın. Bu, reyting verisini yanlışlıkla `takim_arkadaslari` listesine ekler. Doğrusu `reytingler.ekle(reyting)` olmalıdır.
+        * Yine **Adım 4'te**, sıralama yaparken `kucukten_buyuge(reyting)` demişsin. `reyting` listenin kendisi değil, döngüdeki tek bir elemandır. Listenin tamamını, yani `reytingler`'i fonksiyona göndermen gerekir.
+
+    4.  **Algoritma Adımları Eksik:**
+
+        * Pseudocode'un sonunda **6. (En çok oynananı yazdır)** ve **7. (Hangisi daha yüksekse yazdır)** adımları eksik. Sıralama yaptıktan sonra listenin en başındaki elemanı (en büyüğü) yazdırman gerekiyor.
+
+    ### Düzeltilmiş ve Geliştirilmiş Pseudocode
+
+    Aşağıda, hem hataları giderilmiş hem de algoritma adımlarına daha sadık kalacak şekilde yeniden yazılmış pseudocode'u bulabilirsin.
+
+    ```plaintext
+    // Algoritmanın amacı: Belirtilen oyuncunun CS2 verilerini analiz ederek;
+    // 1. Haritalardaki performansını (reyting/maç sayısı) büyükten küçüğe sıralamak.
+    // 2. En çok maç oynadığı takım arkadaşlarını büyükten küçüğe sıralamak.
+    // 3. T ve CT taraflarındaki performansını karşılaştırmak.
+
+    // YARDIMCI FONKSİYON: Bir listeyi BÜYÜKTEN KÜÇÜĞE sıralar (Bubble Sort)
+    FONKSİYON buyukten_kucuge_sirala(veri_listesi):
+        n = uzunluk(veri_listesi)
+        // Listenin her elemanı için döngü başlat
+        DÖNGÜ i = 0'DAN n-1'E KADAR:
+            // Her geçişte en büyük elemanı sona taşır
+            DÖNGÜ j = 0'DAN n-i-2'YE KADAR:
+                // Eğer soldaki eleman sağdakinden küçükse yerlerini değiştir
+                EĞER veri_listesi[j] < veri_listesi[j+1]:
+                    gecici = veri_listesi[j]
+                    veri_listesi[j] = veri_listesi[j+1]
+                    veri_listesi[j+1] = gecici
+        
+        // Sıralanmış listeyi geri döndür
+        VER veri_listesi
+
+    // --- ANA ALGORİTMA ---
+
+    // ADIM 1: API'dan gerekli bilgileri al
+    API = leetify_servisi
+    oyuncu_ID = "senin_steam_id" // Örn: 765611980...
+
+    // API'dan oyuncunun tüm maç verilerini tek seferde al
+    oyuncu_verileri = API.oyuncu_bilgilerini_al(oyuncu_ID)
+
+
+    // ADIM 2: Harita bazlı rekabetçi sıralamalarını al ve sırala
+    // oyuncu_verileri.harita_performansi'nın şöyle bir liste olduğunu varsayalım:
+    // [("Mirage", 1.25), ("Inferno", 1.10), ("Dust 2", 1.35)]
+    harita_performansi = oyuncu_verileri.harita_performansi_getir()
+    sirali_haritalar = buyukten_kucuge_sirala(harita_performansi)
+
+
+    // ADIM 3: Kişilerle oynanılan maç sayılarını al ve sırala
+    // oyuncu_verileri.takim_arkadaslari'nın şöyle bir liste olduğunu varsayalım:
+    // [("Ahmet", 50), ("Mehmet", 75), ("Ayşe", 60)]
+    takim_arkadasi_mac_sayilari = oyuncu_verileri.takim_arkadaslarini_getir()
+    sirali_takim_arkadaslari = buyukten_kucuge_sirala(takim_arkadasi_mac_sayilari)
+
+
+    // ADIM 4: Hem T hem CT tarafındaki reytingleri al
+    // Bu verinin genellikle tekil değerler olduğunu varsayalım:
+    // oyuncu_verileri.t_reytingi = 1.15
+    // oyuncu_verileri.ct_reytingi = 1.22
+    t_reyting = oyuncu_verileri.t_reytingi_getir()
+    ct_reyting = oyuncu_verileri.ct_reytingi_getir()
+
+
+    // ADIM 5: Sıralanmış listeleri yazdır
+    YAZDIR("--- Harita Performans Sıralaması (En Yüksekten Düşüğe) ---")
+    YAZDIR(sirali_haritalar)
+
+    YAZDIR("--- En Çok Oynanan Takım Arkadaşları ---")
+    YAZDIR(sirali_takim_arkadaslari)
+
+
+    // ADIM 6: En çok oynananı/en yüksek performans gösterileni yazdır
+    // Sıralı listenin ilk elemanı en büyük olandır.
+    en_iyi_harita = sirali_haritalar[0]
+    en_cok_oynanan_arkadas = sirali_takim_arkadaslari[0]
+
+    YAZDIR("En yüksek performans gösterdiğin harita: ", en_iyi_harita)
+    YAZDIR("En çok birlikte oynadığın kişi: ", en_cok_oynanan_arkadas)
+
+
+    // ADIM 7: Hangi tarafta performansın daha yüksekse onu yazdır
+    YAZDIR("--- Taraf Performansı Karşılaştırması ---")
+    YAZDIR("T Reytingi: ", t_reyting)
+    YAZDIR("CT Reytingi: ", ct_reyting)
+
+    EĞER ct_reyting > t_reyting:
+        YAZDIR("CT tarafında daha yüksek performans gösteriyorsun.")
+    EĞER t_reyting > ct_reyting:
+        YAZDIR("T tarafında daha yüksek performans gösteriyorsun.")
+    BAŞKA:
+        YAZDIR("Her iki tarafta da performansın denk.")
+
+    ```
+
+    ### Özetle Düzeltmeler:
+
+    1.  **Sıralama Fonksiyonu:** `buyukten_kucuge_sirala` olarak yeniden adlandırıldı ve iç mantığı büyükten küçüğe sıralayacak şekilde düzeltildi. Ayrıca içindeki değişken kullanımları hatasız hale getirildi.
+    2.  **Veri Alma:** Verilerin API'dan toplu olarak alındığı varsayılarak mantık basitleştirildi.
+    3.  **Değişken Adları:** Daha anlaşılır olması için değişken adları Türkçeleştirildi ve netleştirildi (`oyuncuNo` -\> `oyuncu_ID` vb.).
+    4.  **Eksik Adımlar:** Algoritmanın 6. ve 7. adımları (en iyileri ve taraf karşılaştırmasını yazdırma) pseudocode'a eklendi.
+
+    Bu düzeltilmiş hali, başlangıçtaki algoritma hedeflerini daha doğru ve eksiksiz bir şekilde yansıtmaktadır.
+
+/*
+    Değerlendirme : Bu görevde olabildiğince az AI kullanmaya çalıştım. AI'a verdiğim kodda bulduğu hatalar ve çözümler gayet açıklayıcı ve güzeldi.
+*/
