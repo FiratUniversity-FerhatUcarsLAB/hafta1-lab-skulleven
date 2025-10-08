@@ -1,4 +1,225 @@
-Öğrenci No:
-AD-SOYAD:
+Öğrenci No: 250541110
+AD-SOYAD: Melik Buğra Kara
 
-Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+Seçtiğim Algoritma : Bir şarkı listesini sıralamak.
+
+// 1. ADIM: Veri Yapısını Tanımla
+// Her şarkı için Sanatçı, Şarkı Adı ve Dinlenme Sayısını tutacak bir yapı oluştur.
+BELİRLE Şarkı_Yapısı YAPI OLARAK:
+    sanatçı ADI OLARAK METIN
+    şarkıAdı OLARAK METIN
+    dinlenmeSayısı OLARAK TAM SAYI
+BİTİR BELİRLE
+
+
+// 2. ADIM: Şarkı Listesini Oluştur
+// Tanımlanan yapıyı kullanarak tüm şarkıları içeren bir liste oluştur.
+DEĞİŞKEN şarkı_listesi OLARAK LİSTE İÇİNDE Şarkı_Yapısı
+
+// Listeye şarkı verilerini ekle
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Good Luck, Babe!", dinlenmeSayısı: 1793471927} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Pink Pony Club", dinlenmeSayısı: 931582780} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Hot to Go!", dinlenmeSayısı: 793965782} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Red Wine Supernova", dinlenmeSayısı: 553257281} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Casual", dinlenmeSayısı: 488722370} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Femininomenon", dinlenmeSayısı: 323382496} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "My Kink Is Karma", dinlenmeSayısı: 305072437} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Naked In Manhattan", dinlenmeSayısı: 205800630} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Super Graphic Ultra Modern Girl", dinlenmeSayısı: 186751449} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "The Subway", dinlenmeSayısı: 172492303} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "After Midnight", dinlenmeSayısı: 167649901} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Picture You", dinlenmeSayısı: 162927626} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "The Giver", dinlenmeSayısı: 137811067} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Hatsune Miku", şarkıAdı: "Miku", dinlenmeSayısı: 124664267} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Müslüm Gürses", şarkıAdı: "Nilüfer", dinlenmeSayısı: 91472892} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Hatsune Miku", şarkıAdı: "Daisy 2.0 (feat. Hatsune Miku)", dinlenmeSayısı: 85500828} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Müslüm Gürses", şarkıAdı: "Unutamadım - Kaç Kadeh Kırıldı", dinlenmeSayısı: 80684810} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "California", dinlenmeSayısı: 78042177} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Coffee", dinlenmeSayısı: 76685875} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Kaleidoscope", dinlenmeSayısı: 75187761} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Love Me Anyway", dinlenmeSayısı: 62448777} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Guilty Pleasure", dinlenmeSayısı: 58830642} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Hatsune Miku & Kasane Teto", şarkıAdı: "メズマライザー (feat. 初音ミク&重音テト)", dinlenmeSayısı: 53095111} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Hatsune Miku", şarkıAdı: "M@GICAL CURE! LOVE SHOT! (feat. Hatsune Miku)", dinlenmeSayısı: 27505143} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "School Nights", dinlenmeSayısı: 26323513} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Hatsune Miku", şarkıAdı: "Gimme×Gimme feat. 初音ミク・鏡音リン", dinlenmeSayısı: 24964764} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Hatsune Miku", şarkıAdı: "Why Do I (with Hatsune Miku)", dinlenmeSayısı: 22015141} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Hatsune Miku", şarkıAdı: "砂の惑星 ( + 初音ミク )", dinlenmeSayısı: 21976735} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Good Hurt", dinlenmeSayısı: 18530231} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Bitter", dinlenmeSayısı: 17301916} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Die Young", dinlenmeSayısı: 16478527} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Sugar High", dinlenmeSayısı: 15405494} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Hatsune Miku", şarkıAdı: "39 Music!", dinlenmeSayısı: 14816202} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Hatsune Miku", şarkıAdı: "Ievan Polkka - Remastered 2024", dinlenmeSayısı: 14233010} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Hatsune Miku", şarkıAdı: "ワールドイズマイン-初音ミク「マジカルミライ 2021」Live- (feat. 初音ミク)", dinlenmeSayısı: 14103170} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Meantime", dinlenmeSayısı: 13729525} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Hatsune Miku", şarkıAdı: "Miku - Japanese Version", dinlenmeSayısı: 13786002} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Hatsune Miku", şarkıAdı: "ガッチュー！ (feat. 初音ミク&鏡音リン&鏡音レン)", dinlenmeSayısı: 13290458} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Müslüm Gürses", şarkıAdı: "Biz Babadan Böyle Gördük", dinlenmeSayısı: 11401668} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Chappell Roan", şarkıAdı: "Bad for You", dinlenmeSayısı: 11372982} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Hatsune Miku", şarkıAdı: "Sakura Biyori and Time Machine with Hatsune Miku", dinlenmeSayısı: 11111296} İÇİNE şarkı_listesi
+EKLE {sanatçı ADI: "Hatsune Miku", şarkıAdı: "桜日和とタイムマシン with 初音ミク", dinlenmeSayısı: 11087716} İÇİNE şarkı_listesi
+
+
+// 3. ADIM: Listeyi Sırala
+// şarkı_listesi'ni her bir şarkının 'dinlenmeSayısı' özelliğine göre büyükten küçüğe doğru sırala.
+// bubble sort baybeeeee
+HER sayi İÇİNDE uzunluk(şarkı_listesi):
+    değiştirildi = false
+    HER sira İÇİNDE uzunluk(şarkı_listesi) - sayi - 1 İÇİN:
+        EĞER şarkı_listesi.dinlenmeSayısı[sira] > şarkı_listesi.dinlenmeSayısı[sira + 1]:
+            değiştir(şarkı_listesi[sira], şarkı_listesi[sira + 1])
+            değiştirildi = true
+        EĞER değiştirildi == false İSE:
+            boz
+
+
+// 4. ADIM: Sonucu Ekrana Yazdır
+// Sıralanmış listenin üzerinden geçerek her bir şarkının bilgilerini ekrana yazdır.
+DEĞİŞKEN sıra_numarası AS TAM SAYI = 0
+
+HER BİR şarkı İÇİN şarkı_listesi'NDE:
+    YAZDIR sıra_numarası, ". ", şarkı.sanatçı ADI, " - ", şarkı.şarkıAdı, " (Dinlenme: ", şarkı.dinlenmeSayısı, ")"
+    ARTTIR sıra_numarası 1 KADAR
+DÖNGÜ SONU
+
+//LLM ile Soru-Cevap (Gemini)
+
+//Değerlendirme : Gemini ChatGPT'ye kıyasla daha doğru bir cevap verdi. Tek eksik sıralama algoritması ve bazı değişken isimleri ancak onları düzelttikten sonra elimizde gayet güzel bir pseudocode kaldı. Demek zenginlik böyle hissettiriyormuş.
+
+-(Soru) Chappel Roan, Hatsune Miku, Kasane Teto ve Müslüm Gürsesin tüm diskografsinin bulunduğu bir playlistteki şarkıları spotify'da en çok dinlenenden en az dinlenene kadar sırala
+
+-(Cevap)
+    Chappell Roan, Hatsune Miku, Kasane Teto ve Müslüm Gürses'in şarkılarından oluşan bir çalma listesinin Spotify'da en çok dinlenenden en aza doğru sıralanmış hali aşağıda sunulmuştur. Bu liste, sanatçıların diskografilerindeki şarkıların herkese açık olan en son dinlenme sayılarına dayanmaktadır.
+
+    Listenin zirvesinde, Amerikalı pop şarkıcısı Chappell Roan'ın "Good Luck, Babe!" adlı parçası 1.79 milyardan fazla dinlenme ile yer alıyor. Roan'ın diğer popüler şarkıları "Pink Pony Club" ve "Hot to Go!" da listenin üst sıralarında kendine yer buluyor.
+
+    Japon sanal vokalist Hatsune Miku'nun en çok dinlenen şarkısı "Miku", 124 milyondan fazla dinlenmeye sahip. Müslüm Gürses'in "Nilüfer" ve "Seni Yazdım" gibi klasikleşmiş eserleri de milyonlarca dinlenmeyle listenin önemli bir bölümünü oluşturuyor. Bir diğer sentetik vokalist olan Kasane Teto'nun en popüler şarkısı ise "メズマライザー" (Mesmerizer) olarak öne çıkıyor.
+
+    Aşağıdaki tablo, bu dört sanatçının en popüler şarkılarından başlayarak sıralanmış bir seçkiyi göstermektedir:
+
+    | Sıra | Sanatçı | Şarkı Adı | Dinlenme Sayısı (Yaklaşık) |
+    |---|---|---|---|
+    | 1 | Chappell Roan | Good Luck, Babe! | 1,793,471,927 |
+    | 2 | Chappell Roan | Pink Pony Club | 931,582,780 |
+    | 3 | Chappell Roan | Hot to Go! | 793,965,782 |
+    | 4 | Chappell Roan | Red Wine Supernova | 553,257,281 |
+    | 5 | Chappell Roan | Casual | 488,722,370 |
+    | 6 | Chappell Roan | Femininomenon | 323,382,496 |
+    | 7 | Chappell Roan | My Kink Is Karma | 305,072,437 |
+    | 8 | Chappell Roan | Naked In Manhattan | 205,800,630 |
+    | 9 | Chappell Roan | Super Graphic Ultra Modern Girl | 186,751,449 |
+    | 10 | Chappell Roan | The Subway | 172,492,303 |
+    | 11 | Chappell Roan | After Midnight | 167,649,901 |
+    | 12 | Chappell Roan | Picture You | 162,927,626 |
+    | 13 | Chappell Roan | The Giver | 137,811,067 |
+    | 14 | Hatsune Miku | Miku | 124,664,267 |
+    | 15 | Müslüm Gürses | Nilüfer | 91,472,892 |
+    | 16 | Hatsune Miku | Daisy 2.0 (feat. Hatsune Miku) | 85,500,828 |
+    | 17 | Müslüm Gürses | Unutamadım - Kaç Kadeh Kırıldı | 80,684,810 |
+    | 18 | Chappell Roan | California | 78,042,177 |
+    | 19 | Chappell Roan | Coffee | 76,685,875 |
+    | 20 | Chappell Roan | Kaleidoscope | 75,187,761 |
+    | 21 | Chappell Roan | Love Me Anyway | 62,448,777 |
+    | 22 | Chappell Roan | Guilty Pleasure | 58,830,642 |
+    | 23 | Hatsune Miku & Kasane Teto | メズマライザー (feat. 初音ミク&重音テト) | 53,095,111 |
+    | 24 | Hatsune Miku | M@GICAL CURE! LOVE SHOT! (feat. Hatsune Miku) | 27,505,143 |
+    | 25 | Chappell Roan | School Nights | 26,323,513 |
+    | 26 | Hatsune Miku | Gimme×Gimme feat. 初音ミク・鏡音リン | 24,964,764 |
+    | 27 | Hatsune Miku | Why Do I (with Hatsune Miku) | 22,015,141 |
+    | 28 | Hatsune Miku | 砂の惑星 ( + 初音ミク ) | 21,976,735 |
+    | 29 | Chappell Roan | Good Hurt | 18,530,231 |
+    | 30 | Chappell Roan | Bitter | 17,301,916 |
+    | 31 | Chappell Roan | Die Young | 16,478,527 |
+    | 32 | Chappell Roan | Sugar High | 15,405,494 |
+    | 33 | Hatsune Miku | 39 Music! | 14,816,202 |
+    | 34 | Hatsune Miku | Ievan Polkka - Remastered 2024 | 14,233,010 |
+    | 35 | Hatsune Miku | ワールドイズマイン-初音ミク「マジカルミライ 2021」Live- (feat. 初音ミク) | 14,103,170 |
+    | 36 | Chappell Roan | Meantime | 13,729,525 |
+    | 37 | Hatsune Miku | Miku - Japanese Version | 13,786,002 |
+    | 38 | Hatsune Miku | ガッチュー！ (feat. 初音ミク&鏡音リン&鏡音レン) | 13,290,458 |
+    | 39 | Müslüm Gürses | Biz Babadan Böyle Gördük | 11,401,668 |
+    | 40 | Chappell Roan | Bad for You | 11,372,982 |
+    | 41 | Hatsune Miku | Sakura Biyori and Time Machine with Hatsune Miku | 11,111,296 |
+    | 42 | Hatsune Miku | 桜日和とタイムマシン with 初音ミク | 11,087,716 |
+
+    Bu liste, mevcut verilere dayanmaktadır ve sanatçıların yeni şarkılar yayınlaması veya mevcut şarkıların dinlenme sayılarının değişmesiyle zamanla farklılık gösterebilir. Özellikle Hatsune Miku ve Kasane Teto gibi vokal sentezleyici sanatçıların diskografileri, çok sayıda yapımcı tarafından oluşturulan binlerce şarkıyı kapsadığından, bu listede en popüler ve yaygın olarak bilinen eserlerine yer verilmiştir.
+
+-(Soru) şimdi bunları en az dinlenenden en fazla dinlenene doğru sıralayan bir pseudocode yazarmısın
+
+-(Cevap)
+    Elbette, belirtilen şarkıları dinlenme sayısına göre az dinlenenden çok dinlenene doğru sıralayan bir pseudocode (sözde kod) aşağıdadır. Bu kod, programlama dilinden bağımsız olarak bir algoritmanın adımlarını ve mantığını açıklar.
+
+    ```pseudocode
+    // 1. ADIM: Veri Yapısını Tanımla
+    // Her şarkı için Sanatçı, Şarkı Adı ve Dinlenme Sayısını tutacak bir yapı oluştur.
+    DEFINE Şarkı_Yapısı AS STRUCTURE:
+        sanatçı ADI AS METİN
+        şarkı ADI AS METİN
+        dinlenme SAYISI AS TAM SAYI
+    END STRUCTURE
+
+
+    // 2. ADIM: Şarkı Listesini Oluştur
+    // Tanımlanan yapıyı kullanarak tüm şarkıları içeren bir liste oluştur.
+    DEĞİŞKEN şarkı_listesi AS LİSTE İÇİNDE Şarkı_Yapısı
+
+    // Listeye şarkı verilerini ekle
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Good Luck, Babe!", dinlenme SAYISI: 1793471927} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Pink Pony Club", dinlenme SAYISI: 931582780} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Hot to Go!", dinlenme SAYISI: 793965782} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Red Wine Supernova", dinlenme SAYISI: 553257281} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Casual", dinlenme SAYISI: 488722370} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Femininomenon", dinlenme SAYISI: 323382496} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "My Kink Is Karma", dinlenme SAYISI: 305072437} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Naked In Manhattan", dinlenme SAYISI: 205800630} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Super Graphic Ultra Modern Girl", dinlenme SAYISI: 186751449} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "The Subway", dinlenme SAYISI: 172492303} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "After Midnight", dinlenme SAYISI: 167649901} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Picture You", dinlenme SAYISI: 162927626} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "The Giver", dinlenme SAYISI: 137811067} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Hatsune Miku", şarkı ADI: "Miku", dinlenme SAYISI: 124664267} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Müslüm Gürses", şarkı ADI: "Nilüfer", dinlenme SAYISI: 91472892} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Hatsune Miku", şarkı ADI: "Daisy 2.0 (feat. Hatsune Miku)", dinlenme SAYISI: 85500828} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Müslüm Gürses", şarkı ADI: "Unutamadım - Kaç Kadeh Kırıldı", dinlenme SAYISI: 80684810} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "California", dinlenme SAYISI: 78042177} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Coffee", dinlenme SAYISI: 76685875} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Kaleidoscope", dinlenme SAYISI: 75187761} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Love Me Anyway", dinlenme SAYISI: 62448777} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Guilty Pleasure", dinlenme SAYISI: 58830642} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Hatsune Miku & Kasane Teto", şarkı ADI: "メズマライザー (feat. 初音ミク&重音テト)", dinlenme SAYISI: 53095111} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Hatsune Miku", şarkı ADI: "M@GICAL CURE! LOVE SHOT! (feat. Hatsune Miku)", dinlenme SAYISI: 27505143} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "School Nights", dinlenme SAYISI: 26323513} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Hatsune Miku", şarkı ADI: "Gimme×Gimme feat. 初音ミク・鏡音リン", dinlenme SAYISI: 24964764} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Hatsune Miku", şarkı ADI: "Why Do I (with Hatsune Miku)", dinlenme SAYISI: 22015141} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Hatsune Miku", şarkı ADI: "砂の惑星 ( + 初音ミク )", dinlenme SAYISI: 21976735} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Good Hurt", dinlenme SAYISI: 18530231} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Bitter", dinlenme SAYISI: 17301916} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Die Young", dinlenme SAYISI: 16478527} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Sugar High", dinlenme SAYISI: 15405494} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Hatsune Miku", şarkı ADI: "39 Music!", dinlenme SAYISI: 14816202} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Hatsune Miku", şarkı ADI: "Ievan Polkka - Remastered 2024", dinlenme SAYISI: 14233010} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Hatsune Miku", şarkı ADI: "ワールドイズマイン-初音ミク「マジカルミライ 2021」Live- (feat. 初音ミク)", dinlenme SAYISI: 14103170} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Meantime", dinlenme SAYISI: 13729525} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Hatsune Miku", şarkı ADI: "Miku - Japanese Version", dinlenme SAYISI: 13786002} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Hatsune Miku", şarkı ADI: "ガッチュー！ (feat. 初音ミク&鏡音リン&鏡音レン)", dinlenme SAYISI: 13290458} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Müslüm Gürses", şarkı ADI: "Biz Babadan Böyle Gördük", dinlenme SAYISI: 11401668} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Chappell Roan", şarkı ADI: "Bad for You", dinlenme SAYISI: 11372982} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Hatsune Miku", şarkı ADI: "Sakura Biyori and Time Machine with Hatsune Miku", dinlenme SAYISI: 11111296} İÇİNE şarkı_listesi
+    EKLE {sanatçı ADI: "Hatsune Miku", şarkı ADI: "桜日和とタイムマシン with 初音ミク", dinlenme SAYISI: 11087716} İÇİNE şarkı_listesi
+
+
+    // 3. ADIM: Listeyi Sırala
+    // şarkı_listesi'ni her bir şarkının 'dinlenme SAYISI' özelliğine göre küçükten büyüğe doğru sırala.
+    SIRALA şarkı_listesi KULLANARAK dinlenme SAYISI ARTAN SIRADA
+
+
+    // 4. ADIM: Sonucu Ekrana Yazdır
+    // Sıralanmış listenin üzerinden geçerek her bir şarkının bilgilerini ekrana yazdır.
+    DEĞİŞKEN sıra_numarası AS TAM SAYI = 1
+
+    HER BİR şarkı İÇİN şarkı_listesi'NDE:
+        YAZDIR sıra_numarası, ". ", şarkı.sanatçı ADI, " - ", şarkı.şarkı ADI, " (Dinlenme: ", şarkı.dinlenme SAYISI, ")"
+        ARTTIR sıra_numarası 1 KADAR
+    DÖNGÜ SONU
+    ```
